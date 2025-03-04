@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const CartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [],
-    numOfItems: 0,
+    items: [], // Initialize items as an empty array
+    numOfItems: 0, // Number of items multiplied by their quantity
   },
 
   reducers: {
@@ -13,6 +13,7 @@ export const CartSlice = createSlice({
       const existingItem = state.items.find((item) => item.name === name);
 
       if (existingItem) {
+        // In existing items, quantity is already added as property
         existingItem.quantity++;
       } else {
         state.items.push({ name, image, cost, quantity: 1 });
@@ -26,6 +27,7 @@ export const CartSlice = createSlice({
       state.items = state.items.filter((item) => item.name !== name);
       state.numOfItems -= quantity;
 
+      // Just to be sure... I hate negative numbers
       if (state.numOfItems < 0) {
         state.numOfItems = 0;
       }
